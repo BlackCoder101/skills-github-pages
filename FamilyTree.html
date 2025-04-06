@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factor-Tree Styled Family Tree</title>
+    <style >
+      /* Beautiful Gradient Background */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to bottom, #f7f7f7, #e0e0e0);
+    margin: 0;
+    padding: 20px;
+}
+
+/* Family Tree Styling */
+.tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 90%;
+    margin: auto;
+}
+
+/* Family Members List */
+.tree ul {
+    list-style-type: none;
+    padding-left: 0;
+    position: relative;
+}
+
+/* Each Family Member */
+.tree li {
+    position: relative;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Connecting Lines */
+.tree li::before, .tree li::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    width: 50%;
+    height: 15px;
+    border-top: 2px solid #444;
+}
+
+.tree li::before {
+    right: 50%;
+}
+
+.tree li::after {
+    left: 50%;
+}
+
+.tree li:first-child::before,
+.tree li:first-child::after {
+    display: none;
+}
+
+/* Vertical Line Connecting Parent to Children */
+.tree ul.children::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 20px;
+    background-color: #444;
+}
+
+/* Person Block */
+.person {
+    display: inline-block;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 2px solid #444;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.person:hover {
+    transform: scale(1.05);
+}
+
+/* Person Image */
+.person img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #444;
+}
+
+/* Person Name */
+.person p {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Siblings Displayed Horizontally */
+.children {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding-top: 20px;
+}
+
+/* Hide Initially */
+.hidden {
+    display: none;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .person img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .person p {
+        font-size: 14px;
+    }
+
+    .children {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tree li::before, .tree li::after {
+        display: none;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="tree">
+        <ul>
+            <li>
+                <div class="person" onclick="toggleChildren(this)">
+                    <img src="grandparents.jpg" alt="Grandparents">
+                    <p>Grandparents</p>
+                </div>
+                <ul class="children hidden">
+                    <li>
+                        <div class="person" onclick="toggleChildren(this)">
+                            <img src="father.jpg" alt="Father">
+                            <p>Father</p>
+                        </div>
+                        <ul class="children hidden">
+                            <li>
+                                <div class="person">
+                                    <img src="me.jpg" alt="Me">
+                                    <p>Me</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="person">
+                                    <img src="sibling.jpg" alt="Sibling">
+                                    <p>Sibling</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="person" onclick="toggleChildren(this)">
+                            <img src="uncle.jpg" alt="Uncle">
+                            <p>Uncle</p>
+                        </div>
+                        <ul class="children hidden">
+                            <li>
+                                <div class="person">
+                                    <img src="cousin.jpg" alt="Cousin">
+                                    <p>Cousin</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+<script defer>
+  function toggleChildren(element) {
+    let childrenList = element.parentElement.querySelector("ul");
+    if (childrenList) {
+        childrenList.classList.toggle("hidden");
+    }
+}
+</script>
+</html>
